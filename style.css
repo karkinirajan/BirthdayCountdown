@@ -159,7 +159,7 @@ h1 {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  white-space: nowrap; /* Force single line */
+  white-space: normal;
 }
 
 .highlight-name {
@@ -377,5 +377,16 @@ footer p {
     padding: 1.5rem 1rem;
     width: 95%;
     backdrop-filter: blur(15px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

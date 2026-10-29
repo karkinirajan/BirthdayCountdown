@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Birthday Countdown | Nirajan Karki</title>
     <link rel="stylesheet" href="style.css" />
-    <!-- Confetti Library -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script defer src="script.js"></script>
   </head>
   <body>
     <div class="container">
@@ -14,123 +14,37 @@
         <h1 id="greeting">
           Namaste! I am <span class="highlight-name">Nirajan Karki</span>
         </h1>
-        <p class="wish-me-at" id="subtext">Wish me a Happy Birthday in !</p>
+        <p class="wish-me-at" id="subtext">Calculating the next birthday…</p>
       </header>
 
-      <div class="countdown" id="countdown">
-        <div class="time-box">
-          <span class="number" id="days">00</span>
-          <span class="label">Days</span>
+      <main>
+        <div class="countdown" id="countdown" role="timer" aria-live="off">
+          <div class="time-box">
+            <span class="number" id="days">00</span>
+            <span class="label">Days</span>
+          </div>
+          <div class="time-box">
+            <span class="number" id="hours">00</span>
+            <span class="label">Hours</span>
+          </div>
+          <div class="time-box">
+            <span class="number" id="mins">00</span>
+            <span class="label">Mins</span>
+          </div>
+          <div class="time-box">
+            <span class="number" id="secs">00</span>
+            <span class="label">Secs</span>
+          </div>
         </div>
-        <div class="time-box">
-          <span class="number" id="hours">00</span>
-          <span class="label">Hours</span>
+        <div class="celebration-message" id="celebration" role="status" aria-live="polite">
+          🎉 Happy Birthday! 🎂
         </div>
-        <div class="time-box">
-          <span class="number" id="mins">00</span>
-          <span class="label">Mins</span>
-        </div>
-        <div class="time-box">
-          <span class="number" id="secs">00</span>
-          <span class="label">Secs</span>
-        </div>
-      </div>
-
-      <div class="celebration-message" id="celebration">
-        🎉 Happy Birthday! 🎂
-      </div>
+      </main>
 
       <footer>
         <p>Thank you for visiting! See you on birthday !!</p>
       </footer>
     </div>
 
-    <script>
-      // Configuration
-      const targetMonth = 8; // September (0-indexed, 8 = Sept)
-      const targetDay = 28;
-
-      const daysEl = document.getElementById("days");
-      const hoursEl = document.getElementById("hours");
-      const minsEl = document.getElementById("mins");
-      const secsEl = document.getElementById("secs");
-      const countdownEl = document.getElementById("countdown");
-      const celebrationEl = document.getElementById("celebration");
-      const subtextEl = document.getElementById("subtext");
-
-      function getNextBirthday() {
-        const now = new Date();
-        const currentYear = now.getFullYear();
-        let birthday = new Date(currentYear, targetMonth, targetDay);
-
-        if (now > birthday) {
-          birthday.setFullYear(currentYear + 1);
-        }
-        return birthday;
-      }
-
-      function updateCountdown() {
-        const now = new Date();
-        const birthday = getNextBirthday();
-        const diff = birthday - now;
-
-        if (diff <= 0) {
-          // Birthday Reached!
-          handleBirthday();
-          return;
-        }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-
-        daysEl.textContent = String(days).padStart(2, "0");
-        hoursEl.textContent = String(hours).padStart(2, "0");
-        minsEl.textContent = String(minutes).padStart(2, "0");
-        secsEl.textContent = String(seconds).padStart(2, "0");
-      }
-
-      function handleBirthday() {
-        countdownEl.style.display = "none";
-        subtextEl.textContent = "It's time to party!";
-        celebrationEl.style.display = "block";
-
-        // Trigger Confetti
-        var duration = 15 * 1000;
-        var animationEnd = Date.now() + duration;
-        var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
-        function randomInRange(min, max) {
-          return Math.random() * (max - min) + min;
-        }
-
-        var interval = setInterval(function () {
-          var timeLeft = animationEnd - Date.now();
-
-          if (timeLeft <= 0) {
-            return clearInterval(interval);
-          }
-
-          var particleCount = 50 * (timeLeft / duration);
-          confetti(
-            Object.assign({}, defaults, {
-              particleCount,
-              origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-            }),
-          );
-          confetti(
-            Object.assign({}, defaults, {
-              particleCount,
-              origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-            }),
-          );
-        }, 250);
-      }
-
-      // Init
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
-    </script>
   </body>
 </html>
