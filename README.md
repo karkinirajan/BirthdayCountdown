@@ -25,3 +25,27 @@ Check out the live version here: [Birthday Countdown](https://birthdaycountdown.
 - **Responsive**:
   Fully optimized for mobile, tablet, and desktop devices.
 
+---
+
+## 🛠️ Development
+
+No build step and no runtime dependencies. Requires Node 24 (see `.nvmrc`) only for tests and the dev server.
+
+```bash
+npm start      # serves the site at http://localhost:5501 (python3 http.server)
+npm test       # node:test unit tests for the date logic
+```
+
+The birthday is configured in `src/countdown.js` (`BIRTHDAY`, zero-indexed month). Confetti is skipped when the visitor prefers reduced motion.
+
+### Project structure
+
+```
+index.html, style.css   page and styles
+script.js               DOM wiring (ES module)
+src/countdown.js        pure date/countdown logic
+tests/                  node:test unit tests
+images/                 background and photos
+```
+
+Dependency versions: [VERSIONS.md](./VERSIONS.md).

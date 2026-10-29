@@ -1,6 +1,4 @@
-// JavaScript months are zero-indexed: 8 is September.
-const targetMonth = 8;
-const targetDay = 28;
+import { getBirthdayState, getCountdownParts } from "./src/countdown.js";
 
 const daysEl = document.getElementById("days");
 const hoursEl = document.getElementById("hours");
@@ -10,17 +8,6 @@ const countdownEl = document.getElementById("countdown");
 const celebrationEl = document.getElementById("celebration");
 const subtextEl = document.getElementById("subtext");
 let hasCelebrated = false;
-
-function getBirthdayState(now) {
-  const year = now.getFullYear();
-  const birthday = new Date(year, targetMonth, targetDay);
-  const birthdayEnd = new Date(year, targetMonth, targetDay + 1);
-  const isBirthdayToday = now >= birthday && now < birthdayEnd;
-
-  if (isBirthdayToday) return { birthday, isBirthdayToday };
-  if (now >= birthdayEnd) birthday.setFullYear(year + 1);
-  return { birthday, isBirthdayToday };
-}
 
 function updateCountdown() {
   const now = new Date();
@@ -36,16 +23,12 @@ function updateCountdown() {
     day: "numeric",
   })}!`;
 
-  const diff = birthday - now;
-  const days = Math.floor(diff / 86400000);
-  const hours = Math.floor((diff / 3600000) % 24);
-  const minutes = Math.floor((diff / 60000) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
+  const { days, hours, minutes, seconds } = getCountdownParts(birthday, now);
 
-  daysEl.textContent = String(days).padStart(2, "0");
-  hoursEl.textContent = String(hours).padStart(2, "0");
-  minsEl.textContent = String(minutes).padStart(2, "0");
-  secsEl.textContent = String(seconds).padStart(2, "0");
+  daysEl.textContent = days;
+  hoursEl.textContent = hours;
+  minsEl.textContent = minutes;
+  secsEl.textContent = seconds;
 }
 
 function handleBirthday() {
