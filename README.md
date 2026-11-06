@@ -29,7 +29,7 @@ Check out the live version here: [Birthday Countdown](https://birthdaycountdown.
 
 ## 🛠️ Development
 
-No build step and no runtime dependencies. Requires Node 24 (see `.nvmrc`) only for tests and the dev server.
+No build step and no runtime dependencies. Requires Node 26 (see `.nvmrc`) only for tests and the dev server.
 
 ```bash
 npm start      # serves the site at http://localhost:5501 (python3 http.server)
